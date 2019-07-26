@@ -2,7 +2,6 @@ package me.df1229.plugins.navalkingdoms.cmds;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -13,10 +12,9 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.managers.RemovalStrategy;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public class UnclaimRegion implements CommandExecutor {
+public class UnclaimRegion {
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public boolean executeCmd(CommandSender sender, Command command, String label, String[] args) {
 		
 		// Below is the biggest factor in compatibility fix for worldguard/-edit 6.x
 		WorldGuardPlugin wgPlugin = WGBukkit.getPlugin();

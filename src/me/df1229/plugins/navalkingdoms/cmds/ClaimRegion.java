@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -22,10 +21,9 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public class ClaimRegion implements CommandExecutor {
+public class ClaimRegion {
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public boolean executeCmd(CommandSender sender, Command command, String label, String[] args) {
 		
 		WorldEditPlugin wePlugin = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 		if (!(wePlugin instanceof WorldEditPlugin)) {
