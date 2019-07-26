@@ -7,6 +7,7 @@ of the minecraft version the server is running. This is currently Minecraft 1.10
 
 ### Dependencies
 > WorldGuard v6.2
+
 > WorldEdit v6.1.3
 
 ### Version numbering
