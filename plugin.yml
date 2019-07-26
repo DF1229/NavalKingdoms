@@ -1,0 +1,32 @@
+name: NavalKingdoms
+version: 0.9.7
+depend: [WorldGuard, WorldEdit]
+author: DF1229
+
+commands:
+  nkclaim:
+    description: Claim a protected region
+    usage: Syntax error! Did you mean /claim
+    permission: navalkingdoms.claim
+    permission-message: You don't have permission for that command!
+  nkunclaim:
+    description: Remove your protected region
+    usage: Syntax error! Did you mean /unclaim
+    permission: navalkingdoms.unclaim
+    permission-message: You don't have permission for that command!
+
+permissions:
+  navalkingdoms.*:
+    description: Allows all commands
+    default: OP
+    children:
+      navalkingdoms.claim: true
+      navalkingdoms.unclaim: true
+  navalkingdoms.claim:
+    description: Gives access to the /nkclaim command
+    default: OP
+  navalkingdoms.unclaim:
+    description: Gives access to the /nkunclaim command
+    default: OP
+
+main: me.df1229.plugins.navalkingdoms.NavalKingdoms
