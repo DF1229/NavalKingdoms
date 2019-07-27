@@ -14,22 +14,8 @@ permissions:
     description: Allows all commands
     default: OP
     children:
-      navalkingdoms.region.claim: true
-      navalkingdoms.region.unclaim: true
+      navalkingdoms.use: true
   navalkingdoms.use:
     description: Allows access to the /nk command
-  navalkingdoms.region.*:
-    description: Allow all region-related commands
-    children:
-      navalkingdoms.region.claim: true
-      navalkingdoms.region.unclaim: true
-  navalkingdoms.region.claim:
-    description: Gives access to the /nk claim command
-      children:
-        navalkingdoms.use: true
-  navalkingdoms.region.unclaim:
-    description: Gives access to the /nk unclaim command
-    children:
-      navalkingdoms.use: true
 
 main: me.df1229.plugins.navalkingdoms.NavalKingdoms
