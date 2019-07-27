@@ -9,8 +9,10 @@ public class NavalKingdoms extends JavaPlugin implements Listener {
 	
 	public void onEnable() {
 		
-		this.getCommand("nkclaim").setExecutor(new ClaimRegion());
-		this.getCommand("nkunclaim").setExecutor(new UnclaimRegion());
+		this.getCommand("nk").setExecutor(new HubCommand());
+		
+		//this.getCommand("nkclaim").setExecutor(new ClaimRegion());
+		//this.getCommand("nkunclaim").setExecutor(new UnclaimRegion());
 		
 	}
 	
