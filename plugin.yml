@@ -1,12 +1,12 @@
 name: NavalKingdoms
-version: 1.0.0
+version: 1.1.0
 depend: [WorldGuard, WorldEdit]
 author: DF1229
 
 commands:
   nk:
     description: Manage your regions
-    usage: Syntax error! /nk <claim|unclaim>
+    usage: Syntax error! /nk <claim|unclaim|reload>
     permission: navalkingdoms.use
 
 permissions:
@@ -15,7 +15,10 @@ permissions:
     default: OP
     children:
       navalkingdoms.use: true
+      navalkingdoms.reload: true
   navalkingdoms.use:
     description: Allows access to the /nk command
+  navalkingdoms.reload:
+    description: Lets the user reload the plugin
 
 main: me.df1229.plugins.navalkingdoms.NavalKingdoms
