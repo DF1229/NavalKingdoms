@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
@@ -21,24 +22,34 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
+import me.df1229.plugins.navalkingdoms.NavalKingdoms;
+
 public class ClaimRegion {
+	
+	private static Plugin plugin = NavalKingdoms.getPlugin(NavalKingdoms.class);
 
 	public boolean executeCmd(CommandSender sender, Command command, String label, String[] args) {
 		
+		String prefix = plugin.getConfig().getString("chat-prefix");
+		
+		if (prefix == null) {
+			sender.sendMessage(ChatColor.RED + "Internal Plugin Error: Cannot load plugin's chat prefix, is it in config.yml?");
+		}
+		
 		WorldEditPlugin wePlugin = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 		if (!(wePlugin instanceof WorldEditPlugin)) {
-			sender.sendMessage(ChatColor.RED + "[NavalKingdoms] Error: Unable to load WorldEdit");
+			sender.sendMessage(ChatColor.RED + prefix + " Error: Unable to load WorldEdit");
 		}
 		
 		// Below is the biggest factor in compatibility fix for worldguard/-edit 6.x
 		WorldGuardPlugin wgPlugin = WGBukkit.getPlugin();
 		if (!(wgPlugin instanceof WorldGuardPlugin)) {
-			sender.sendMessage(ChatColor.RED + "[NavalKingdoms] Error: Unable to load WorldGuard");
+			sender.sendMessage(ChatColor.RED + prefix + " Error: Unable to load WorldGuard");
 			return true;
 		}
 		
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "[NavalKingdoms] You can only register a claim as a player");
+			sender.sendMessage(ChatColor.RED + prefix + " You can only register a claim as a player");
 			return true;
 		}
 		
@@ -47,14 +58,14 @@ public class ClaimRegion {
 		RegionContainer container = wgPlugin.getRegionContainer(); // RegionContainer object of all regions
 		
 		if (container == null) {
-			player.sendMessage(ChatColor.RED + "[NavalKingdoms] Error: Could not load WorldGuard data, please contact the server's staff!");
+			player.sendMessage(ChatColor.RED + prefix + " Error: Could not load WorldGuard data, please contact the server's staff!");
 			return true;
 		}
 		
 		RegionManager regions = container.get(player.getWorld()); // RegionManager object for all regions in the player's world.
 		
 		if (regions == null) {
-			player.sendMessage(ChatColor.RED + "[NavalKingdoms] Error: Could not load " + player.getWorld().getName() + "'s regions, please contact the server's staff!");
+			player.sendMessage(ChatColor.RED + prefix + " Error: Could not load " + player.getWorld().getName() + "'s regions, please contact the server's staff!");
 			return true;
 		}
 		
@@ -89,12 +100,12 @@ public class ClaimRegion {
 			
 			// TODO: Add feature support for territorial mark above the region
 			
-			player.sendMessage(ChatColor.GREEN + "[NavalKingdoms] Your region has been created!");
+			player.sendMessage(ChatColor.GREEN + prefix + " Your region has been created!");
 				
 			return true;
 		} else {
 			// Region already exists
-			player.sendMessage(ChatColor.AQUA + "[NavalKingdoms] You already have a claim, use " + ChatColor.ITALIC + "/unclaim " + ChatColor.RESET + ChatColor.AQUA + "to remove your region.");
+			player.sendMessage(ChatColor.AQUA + prefix + " You already have a claim, use " + ChatColor.ITALIC + "/nk unclaim " + ChatColor.RESET + ChatColor.AQUA + "to remove your region.");
 			return true;
 		}
 		
