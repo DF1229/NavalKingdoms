@@ -30,7 +30,6 @@ public class UnclaimRegion {
 		}
 		
 		Player player = (Player) sender; // Bukkit's Player object of the sender
-		//LocalPlayer lPlayer = WorldGuardPlugin.inst().wrapPlayer(player); // WorldGuard's LocalPlayer object of the player
 		
 		RegionContainer container = wgPlugin.getRegionContainer(); // All regions wrapped up per world in a RegionContainer
 		
