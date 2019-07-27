@@ -57,12 +57,17 @@ public class HubCommand implements CommandExecutor {
 	private void reloadConfig(Player player) {
 		
 		if (!player.hasPermission("navalkingdoms.reload")) {
-			player.sendMessage(ChatColor.RED + prefix + " You don't have permission to use that command.");
+			player.sendMessage(ChatColor.RED + prefix + " You don't have permission to do that");
 			return;
 		}
 		
 		plugin.reloadConfig();
+		reloadPrefix();
 		player.sendMessage(ChatColor.GREEN + prefix + " Config.yml reloaded");
+	}
+	
+	public void reloadPrefix() {
+		prefix = plugin.getConfig().getString("chat-prefix");
 	}
 
 }
