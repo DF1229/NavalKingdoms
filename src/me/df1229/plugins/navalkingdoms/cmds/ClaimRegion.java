@@ -53,7 +53,7 @@ public class ClaimRegion {
 		}
 		
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + prefix + " You can only register a claim as a player");
+			sender.sendMessage(ChatColor.RED + prefix + " Error: You can only use this command as a player.");
 			return;
 		}
 		
