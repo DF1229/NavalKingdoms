@@ -9,9 +9,3 @@ of the minecraft version the server is running. This is currently Minecraft 1.10
 > WorldGuard v6.2
 
 > WorldEdit v6.1.3
-
-### Version numbering
-The plugin version as of writing this is considered to be v0.9.7.
-This means there will be 3 feature enhancements added before v1.0.0.
-In general all new commands will increment the version number in the second position by one.
-Any enhancements or big fixes will increment the version number in the third position by one.
