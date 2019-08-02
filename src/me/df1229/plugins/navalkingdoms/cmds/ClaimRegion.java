@@ -1,5 +1,6 @@
 package me.df1229.plugins.navalkingdoms.cmds;
 
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import com.sk89q.worldguard.bukkit.RegionContainer;
 import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.domains.DefaultDomain;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
@@ -88,7 +90,19 @@ public class ClaimRegion {
 			ProtectedRegion newRegion = new ProtectedCuboidRegion(playerName, pos1, pos2); // Definition of the new region 
 			
 			if (checkOverlap) {
-				// TODO: Add overlap checking
+				ApplicableRegionSet set = regions.getApplicableRegions(newRegion);
+				if (set != null) { // Checks to see if the region overlaps with any other region, if so, send an error message
+					
+					Set<ProtectedRegion> overlappingRegions = set.getRegions();
+					for (ProtectedRegion region : overlappingRegions) {
+						if (region.getId() == "__global__") {
+							continue;
+						} else if (region.getId() != "__global__") {
+							player.sendMessage(ChatColor.AQUA + prefix + " You can't make a claim here, because it would overlap with someone else's claim");
+							return;
+						}
+					}
+				}
 			}
 			
 			DefaultDomain owners = newRegion.getOwners(); // List of current owners of the region
