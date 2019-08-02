@@ -28,13 +28,7 @@ public class HubCommand implements CommandExecutor {
 			return false;
 		}
 		
-		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + prefix + " You can't use that command here!");
-			return true;
-		}
-		
 		Player player = (Player) sender;
-		
 		
 		switch (args[0]) {
 		case "claim":
