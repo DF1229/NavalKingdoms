@@ -13,6 +13,7 @@ import org.bukkit.plugin.Plugin;
 
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldguard.bukkit.RegionContainer;
 import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -33,8 +34,11 @@ public class ClaimRegion {
 	public void executeCmd(CommandSender sender, Command command, String label, String[] args) {
 		
 		String prefix = plugin.getConfig().getString("chat-prefix");
+		
 		Boolean checkOverlap = plugin.getConfig().getBoolean("prevent-overlapping-claims");
 		Boolean markBoundary = plugin.getConfig().getBoolean("mark-claim-boundary");
+		
+		Integer boundaryHeight = plugin.getConfig().getInt("boundary-height"); // TODO: Add boundaryHeight to config.yml
 		
 		if (prefix == null) {
 			sender.sendMessage(ChatColor.RED + "Internal Plugin Error: Cannot load plugin's chat prefix, is it in config.yml?");
@@ -81,11 +85,11 @@ public class ClaimRegion {
 			Location playerLoc = player.getLocation(); // Location object for the player's location
 			
 			Double playerX = playerLoc.getX(); // Original X
-			Double playerY = playerLoc.getY(); // Original Y
+			//Double playerY = playerLoc.getY(); // Original Y
 			Double playerZ = playerLoc.getZ(); // Original Z
 			
-			BlockVector pos1 = new BlockVector(playerX - 50, playerY - 200, playerZ - 50); // Modified coordinates for pos1
-			BlockVector pos2 = new BlockVector(playerX + 50, playerY + 200, playerZ + 50); // Modified coordinates for pos2
+			BlockVector pos1 = new BlockVector(playerX - 50, 1, playerZ - 50); // Modified coordinates for pos1
+			BlockVector pos2 = new BlockVector(playerX + 50, 300, playerZ + 50); // Modified coordinates for pos2
 			
 			ProtectedRegion newRegion = new ProtectedCuboidRegion(playerName, pos1, pos2); // Definition of the new region 
 			
@@ -106,7 +110,7 @@ public class ClaimRegion {
 			}
 			
 			DefaultDomain owners = newRegion.getOwners(); // List of current owners of the region
-			owners.addPlayer(playerUUID);
+			owners.addPlayer(playerUUID); // add the player to the list of owners, allowing them to build in their own region
 			
 			newRegion.setFlag(DefaultFlag.BUILD, StateFlag.State.DENY); // Build = deny
 			newRegion.setFlag(DefaultFlag.BLOCK_BREAK, StateFlag.State.DENY); // Block_break = deny
@@ -118,6 +122,11 @@ public class ClaimRegion {
 			
 			if (markBoundary) {
 				// TODO: Add feature support for territorial mark above the region
+				BlockVector boundaryPos1 = new BlockVector(playerX, boundaryHeight, playerZ);
+				BlockVector boundaryPos2 = new BlockVector(playerX, boundaryHeight, playerZ);
+				
+				CuboidSelection selection = new CuboidSelection(player.getWorld(), boundaryPos1, boundaryPos2);
+				
 			}
 			
 			player.sendMessage(ChatColor.GREEN + prefix + " Your region has been created!");
