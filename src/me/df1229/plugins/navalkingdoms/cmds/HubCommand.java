@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import me.df1229.plugins.navalkingdoms.NavalKingdoms;
@@ -28,8 +27,6 @@ public class HubCommand implements CommandExecutor {
 			return false;
 		}
 		
-		Player player = (Player) sender;
-		
 		switch (args[0]) {
 		case "claim":
 			claimExec.executeCmd(sender, cmd, label, args);
@@ -38,26 +35,26 @@ public class HubCommand implements CommandExecutor {
 			unclaimExec.executeCmd(sender, cmd, label, args);
 			break;
 		case "reload":
-			reloadConfig(player);
+			reloadConfig(sender);
 			break;			
 		default:
-			player.sendMessage(ChatColor.RED + prefix + " Command error: could not parse command, please notify staff");
+			sender.sendMessage(ChatColor.RED + prefix + " Command error: could not parse command, please notify staff");
 			break;
 		}
 		
 		return true;
 	}
 	
-	private void reloadConfig(Player player) {
+	private void reloadConfig(CommandSender sender) {
 		
-		if (!player.hasPermission("navalkingdoms.reload")) {
-			player.sendMessage(ChatColor.RED + prefix + " You don't have permission to do that");
+		if (!sender.hasPermission("navalkingdoms.reload")) {
+			sender.sendMessage(ChatColor.RED + prefix + " You don't have permission to do that");
 			return;
 		}
 		
 		plugin.reloadConfig();
 		reloadPrefix();
-		player.sendMessage(ChatColor.GREEN + prefix + " Config.yml reloaded");
+		sender.sendMessage(ChatColor.GREEN + prefix + " Config.yml reloaded");
 	}
 	
 	public void reloadPrefix() {
