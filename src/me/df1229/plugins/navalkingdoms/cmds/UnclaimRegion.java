@@ -19,7 +19,7 @@ public class UnclaimRegion {
 	
 	private static Plugin plugin = NavalKingdoms.getPlugin(NavalKingdoms.class);
 
-	public boolean executeCmd(CommandSender sender, Command command, String label, String[] args) {
+	public void executeCmd(CommandSender sender, Command command, String label, String[] args) {
 		
 		String prefix = plugin.getConfig().getString("chat-prefix");
 		
@@ -31,13 +31,13 @@ public class UnclaimRegion {
 		WorldGuardPlugin wgPlugin = WGBukkit.getPlugin();
 		if (!(wgPlugin instanceof WorldGuardPlugin)) {
 			sender.sendMessage(ChatColor.RED + prefix + " Error: WorldGuard could not be loaded.");
-			return true;
+			return;
 		}
 		
 		// Check if sender is a player, if not: send an error and exit early
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED + prefix + " Error: You can only use this command as a player.");
-			return true;
+			return;
 		}
 		
 		Player player = (Player) sender; // Bukkit's Player object of the sender
@@ -47,7 +47,7 @@ public class UnclaimRegion {
 		// Check if the container was loaded successfully, if not: send an error and exit early
 		if (container == null) {
 			player.sendMessage(ChatColor.RED + prefix + " Error 502: Could not load claim data, please contact the server's staff.");
-			return true;
+			return;
 		}
 		
 		RegionManager regions = container.get(player.getWorld()); // RegionManager for the world the player is in
@@ -55,7 +55,7 @@ public class UnclaimRegion {
 		// Check if the regions were loaded successfully, if not: send an error and exit early
 		if (regions == null) {
 			player.sendMessage(ChatColor.RED + prefix + " Could not load " + player.getWorld().getName() + "'s claims, please try again and contact the server's staff!");
-			return true;
+			return;
 		}
 		
 		String playerName = player.getName(); // Player's name stored as a String, used as region ID
@@ -66,14 +66,14 @@ public class UnclaimRegion {
 		// if yes: remove the region and send the player a message.
 		if (playerRegion == null) {
 			player.sendMessage(ChatColor.RED + prefix + " You don't have a region, make one with " + ChatColor.ITALIC + "/nk claim");
-			return true;
+			return;
 		} else {
 			
 			// TODO: Add confirmation before removing regions
 			
 			regions.removeRegion(playerName, RemovalStrategy.UNSET_PARENT_IN_CHILDREN);
 			player.sendMessage(ChatColor.GREEN + prefix + " Your region was removed, any children of the region still exist. If you need these removed, contact staff.");
-			return true;
+			return;
 		}
 		
 	}
