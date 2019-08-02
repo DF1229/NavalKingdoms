@@ -65,7 +65,7 @@ public class UnclaimRegion {
 		// If not: send an error and exit early
 		// if yes: remove the region and send the player a message.
 		if (playerRegion == null) {
-			player.sendMessage(ChatColor.RED + prefix + " You don't have a region, make one with " + ChatColor.ITALIC + "/nk claim");
+			player.sendMessage(ChatColor.RED + prefix + " You don't have a claim, make one with " + ChatColor.ITALIC + "/nk claim");
 			return;
 		} else {
 			
