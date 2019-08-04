@@ -38,7 +38,7 @@ public class ClaimRegion {
 		Boolean checkOverlap = plugin.getConfig().getBoolean("prevent-overlapping-claims");
 		Boolean markBoundary = plugin.getConfig().getBoolean("mark-claim-boundary");
 		
-		Integer boundaryHeight = plugin.getConfig().getInt("boundary-height"); // TODO: Add boundaryHeight to config.yml
+		Integer boundaryHeight = plugin.getConfig().getInt("boundary-height");
 		
 		if (prefix == null) {
 			sender.sendMessage(ChatColor.RED + "Internal Plugin Error: Cannot load plugin's chat prefix, is it in config.yml?");

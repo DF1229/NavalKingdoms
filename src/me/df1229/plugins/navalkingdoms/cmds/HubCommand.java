@@ -45,6 +45,11 @@ public class HubCommand implements CommandExecutor {
 		return true;
 	}
 	
+	
+	/**
+	 * Reload the config.yml file if the sender has the permission to do so
+	 * @param CommandSender sender
+	 */
 	private void reloadConfig(CommandSender sender) {
 		
 		if (!sender.hasPermission("navalkingdoms.reload")) {

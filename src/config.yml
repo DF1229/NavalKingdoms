@@ -1,3 +1,4 @@
 chat-prefix: "[NavalKingdoms]"
 prevent-overlapping-claims: true
 mark-claim-boundary: true
+boundary-height: 100

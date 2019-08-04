@@ -15,6 +15,9 @@ public class NavalKingdoms extends JavaPlugin implements Listener {
 		
 	}
 	
+	/**
+	 * Load config.yml
+	 */
 	public void loadConfig() {
 		getConfig().options().copyDefaults(true);
 		saveConfig();
