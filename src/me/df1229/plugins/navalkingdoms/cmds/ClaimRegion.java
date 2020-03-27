@@ -85,7 +85,7 @@ public class ClaimRegion {
 			Location playerLoc = player.getLocation(); // Location object for the player's location
 			
 			Double playerX = playerLoc.getX(); // Original X
-			//Double playerY = playerLoc.getY(); // Original Y
+			//Double playerY = playerLoc.getY(); // Original Y (unused)
 			Double playerZ = playerLoc.getZ(); // Original Z
 			
 			BlockVector pos1 = new BlockVector(playerX - 50, 1, playerZ - 50); // Modified coordinates for pos1
@@ -100,10 +100,12 @@ public class ClaimRegion {
 					Set<ProtectedRegion> overlappingRegions = set.getRegions();
 					for (ProtectedRegion region : overlappingRegions) {
 						if (region.getId() == "__global__") {
-							continue;
+							continue; // Allow overlapping with the __global__ region, else no one would be able to make claims
 						} else if (region.getId() != "__global__") {
 							player.sendMessage(ChatColor.AQUA + prefix + " You can't make a claim here, because it would overlap with someone else's claim");
 							return;
+						} else {
+							player.sendMessage(ChatColor.RED + prefix + " Error: something went wrong, but we're not entirely sure what...");
 						}
 					}
 				}
@@ -125,7 +127,9 @@ public class ClaimRegion {
 				BlockVector boundaryPos1 = new BlockVector(playerX, boundaryHeight, playerZ);
 				BlockVector boundaryPos2 = new BlockVector(playerX, boundaryHeight, playerZ);
 				
+				@SuppressWarnings("unused")
 				CuboidSelection selection = new CuboidSelection(player.getWorld(), boundaryPos1, boundaryPos2);
+				// TODO: for selection, use WE API to do "//walls minecraft:stained_glass
 				
 			}
 			

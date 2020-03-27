@@ -38,7 +38,7 @@ public class HubCommand implements CommandExecutor {
 			reloadConfig(sender);
 			break;			
 		default:
-			sender.sendMessage(ChatColor.RED + prefix + " Command error: could not parse command, please notify staff");
+			sender.sendMessage(ChatColor.RED + prefix + " Could not find the specified command");
 			break;
 		}
 		

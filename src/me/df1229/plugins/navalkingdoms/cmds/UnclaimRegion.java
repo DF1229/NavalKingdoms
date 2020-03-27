@@ -27,7 +27,7 @@ public class UnclaimRegion {
 			sender.sendMessage(ChatColor.RED + "Internal Plugin Error: Cannot load plugin's chat prefix, is it in config.yml?");
 		}
 		
-		// Below is the biggest factor in compatibility fix for worldguard/-edit 6.x
+		// Below is the biggest factor in compatibility fix for worldguard/-edit 6.x shit's wonky without this
 		WorldGuardPlugin wgPlugin = WGBukkit.getPlugin();
 		if (!(wgPlugin instanceof WorldGuardPlugin)) {
 			sender.sendMessage(ChatColor.RED + prefix + " Error: WorldGuard could not be loaded.");
@@ -46,7 +46,7 @@ public class UnclaimRegion {
 		
 		// Check if the container was loaded successfully, if not: send an error and exit early
 		if (container == null) {
-			player.sendMessage(ChatColor.RED + prefix + " Error 502: Could not load claim data, please contact the server's staff.");
+			player.sendMessage(ChatColor.RED + prefix + " Error: Could not load claim data, please contact the server's staff.");
 			return;
 		}
 		
@@ -54,7 +54,7 @@ public class UnclaimRegion {
 				
 		// Check if the regions were loaded successfully, if not: send an error and exit early
 		if (regions == null) {
-			player.sendMessage(ChatColor.RED + prefix + " Could not load " + player.getWorld().getName() + "'s claims, please try again and contact the server's staff!");
+			player.sendMessage(ChatColor.RED + prefix + " Could not load " + player.getWorld().getName() + "'s claims, please try again or contact the server's staff!");
 			return;
 		}
 		
@@ -63,7 +63,7 @@ public class UnclaimRegion {
 		
 		// Check to see if the region exists.
 		// If not: send an error and exit early
-		// if yes: remove the region and send the player a message.
+		// if yes: remove the region and send the player a confirmation.
 		if (playerRegion == null) {
 			player.sendMessage(ChatColor.RED + prefix + " You don't have a claim, make one with " + ChatColor.ITALIC + "/nk claim");
 			return;
@@ -72,7 +72,7 @@ public class UnclaimRegion {
 			// TODO: Add confirmation before removing regions
 			
 			regions.removeRegion(playerName, RemovalStrategy.UNSET_PARENT_IN_CHILDREN);
-			player.sendMessage(ChatColor.GREEN + prefix + " Your region was removed, any children of the region still exist. If you need these removed, contact staff.");
+			player.sendMessage(ChatColor.GREEN + prefix + " Your region was removed, any children of the region still exist. If you need these removed, please contact staff.");
 			return;
 		}
 		
